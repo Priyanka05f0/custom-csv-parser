@@ -171,13 +171,22 @@ class CustomCsvWriter:
             return f"{self.quotechar}{escaped}{self.quotechar}"
         return text
 
-    def write_row(self, row):
+    def writerow(self, row):
         """Write a single row (list or tuple of values) to the file."""
         parts = [self._quote_field(value) for value in row]
         line = self.delimiter.join(parts) + self.line_terminator
         self.file.write(line)
 
-    def write_rows(self, rows):
+    def writerows(self, rows):
         """Write multiple rows (iterable of lists/tuples) to the file."""
         for row in rows:
-            self.write_row(row)
+            self.writerow(row)
+
+    # Backward-compatible aliases (do not remove — safe to keep)
+    def write_row(self, row):
+        """Backward compatibility: old method name calls writerow."""
+        return self.writerow(row)
+
+    def write_rows(self, rows):
+        """Backward compatibility: old method name calls writerows."""
+        return self.writerows(rows)
