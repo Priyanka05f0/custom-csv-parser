@@ -2,29 +2,38 @@
 
 ## 1. Project Overview
 
-This project implements a simple CSV (Comma-Separated Values) reader and writer from scratch in Python, without using the built-in `csv` module for parsing and writing.
+This project implements a custom CSV (Comma-Separated Values) **reader** and **writer** from scratch in Python, **without using the built-in `csv` module for parsing**.  
+The main objective is to understand:
 
-The goal is to understand:
+- Low-level CSV parsing (handling commas, quotes, escaped quotes, and embedded newlines)
+- Iterators and streaming file processing
+- Writing CSV files correctly with quoting and escaping rules
+- Benchmarking performance against Python’s standard `csv` module
 
-- How CSV parsing works internally (handling commas, quotes, and newlines).
-- How to design clean, iterator-based classes in Python.
-- How to benchmark a custom implementation against the standard library.
+### Implemented Components
 
-The main classes are:
+- **CustomCsvReader**  
+  A streaming, iterator-based CSV parser that:
+  - Reads files character-by-character  
+  - Correctly handles quoted fields  
+  - Decodes escaped quotes (`""`)  
+  - Supports newline characters *inside* quoted fields  
+  - Processes file in streaming mode (does not load entire file into memory)
 
-- `CustomCsvReader` – a streaming CSV reader implemented as an iterator.
-- `CustomCsvWriter` – a CSV writer that correctly escapes and quotes fields.
+- **CustomCsvWriter**  
+  A CSV writer that:
+  - Escapes existing quotes  
+  - Automatically quotes fields containing commas, quotes, or newlines  
+  - Writes valid CSV rows readable by any standard CSV parser
 
 ---
 
 ## 2. Setup Instructions
 
 ### Prerequisites
-
-- Python 3.8 or higher installed.
+- **Python 3.8+** installed
 
 ### (Optional) Create and activate a virtual environment
-
 ```bash
 python -m venv .venv
 # Windows:
